@@ -1,9 +1,9 @@
 const express = require('express')
 const app = express()
 var path = require('path');
-var login = path.join(__dirname, 'login');
+var profile = path.join(__dirname, 'profile');
 var mainpage = path.join(__dirname, 'main');
-
+var public = path.join(__dirname, 'public');
 const PORT = process.env.PORT || 3001;
 
 // Just simple web server to quickly send all of the website code to the client.
@@ -15,12 +15,14 @@ app.get('/', function(req, res) {
 
 app.use('/', express.static(mainpage));
 
+app.use('/public/', express.static(public));
+
 // Login Screen
-app.get('/login/', function(req, res) {
-    res.sendFile(path.join(login, 'index.html'));
+app.get('/profile/', function(req, res) {
+    res.sendFile(path.join(profile, 'index.html'));
 });
 
-app.use('/login/', express.static(login));
+app.use('/profile/', express.static(profile));
 
 app.listen(PORT, () => console.log('server ready'))
 
