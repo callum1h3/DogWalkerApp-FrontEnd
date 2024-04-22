@@ -6,6 +6,8 @@ var mainpage = path.join(__dirname, 'main');
 var public = path.join(__dirname, 'public');
 const PORT = process.env.PORT || 3001;
 
+const http = require('http');
+
 // Just simple web server to quickly send all of the website code to the client.
 
 // Main Page
@@ -24,5 +26,6 @@ app.get('/profile/', function(req, res) {
 
 app.use('/profile/', express.static(profile));
 
-app.listen(PORT, () => console.log('server ready'))
+const httpServer = http.createServer(app);
+httpServer.listen(3001, () => console.log('server ready'))
 
