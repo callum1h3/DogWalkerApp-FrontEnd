@@ -138,3 +138,83 @@ VerifyToken((response) => {
 }, () => {
 
 })
+
+function OpenLatLong(lat, long)
+{
+    var url = "https://maps.google.com/?q=" + long + "," + lat;
+    window.open(url);
+}
+
+function CreateListElement(username, description, phone, lat, long)
+{
+    var list_element = `<main>
+    <div class="list">
+      <div class="line">
+        <div class="user">
+          <div class="details">
+            <h3 class="username">`+username+`</h3>
+            <h3 class="description">`+description+`</h3>
+          </div>
+          <div class="phone">
+            <p>+`+phone+`</p>
+          </div>
+          <div class="location">
+            <button type="button" onclick="OpenLatLong(`+lat+`,`+long+`)">Find Location</button> 
+          </div>
+        </div>
+      </div>
+    </div>
+    </main>`;
+
+    let list = document.getElementById("myList");
+    let li = document.createElement('li');
+    li.innerHTML = list_element;
+    list.appendChild(li);
+}
+
+function GetNearbyListings(distance)
+{
+    let list = document.getElementById("myList");
+    while(list.firstChild) list.removeChild(list.firstChild);
+
+    navigator.geolocation.getCurrentPosition((position) => {
+        const details = new URLSearchParams({
+            'lat':position.coords.longitude,    
+            'long':position.coords.latitude,
+            'distance': distance
+        })
+        PostHelper(listingServerUrl + "/search/", details, (response) => {
+            isRegisteringOrLogginging = false;
+            
+            // Fails to connect to the server.
+            if (response == null)
+            {
+                console.log("Failed to connect!");
+                return;
+            }
+        
+            // Error with registering.
+            if (response.error)
+            {
+                console.log("Failed to get listings.")
+                return;
+            }
+            
+            response.listings.forEach((element) =>   
+                CreateListElement(element.username, element.description, element.phoneNumber, element.lat, element.long)
+            );
+        });
+    });
+}
+
+var slider = document.getElementById('myRange');
+var slidercounter = document.getElementById('slidercount');
+slidercounter.style.color = "green";
+slidercounter.innerText = 'Distance: 16 (KM)';
+
+slider.addEventListener('change', function() {
+    slidercounter.innerText = 'Distance: ' + slider.value + ' (KM)';
+    GetNearbyListings(slider.value);
+});
+
+GetNearbyListings(16)

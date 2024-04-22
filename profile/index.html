@@ -21,8 +21,15 @@
   </nav>
 
   <h1>Settings</h1>
-  <h2>General Settings</h2>
-  <h2>Dog Walker Status</h2>
+  <label for="fdescription">Description:</label>
+  <input type="text" id="fdescription" name="fdescription"><br><br>
+
+  <label for="fphone">Phone Number:</label>
+  <input type="text" id="fphone" name="fphone"><br><br>
+
+  <button onclick=CreateOrUpdate()>Create/Update</button>
+  <button onclick=DeleteListing()>Delete</button>
+
   <script>
     function showSidebar(){
       const sidebar = document.querySelector('.sidebar')

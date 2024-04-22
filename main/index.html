@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  
   <nav>
     <ul class="sidebar">
       <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26"><path d="m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg></a></li>
@@ -60,6 +62,13 @@
     </div>
   </form>
 </div>
+
+<div class="slidecontainer">
+  <input type="range" min="1" max="300" value="16" class="slider" id="myRange">
+  <label id="slidercount"><b>Distance: </b></label>
+</div>
+
+<ul id="myList"></ul>
 
 <script type="text/javascript" src="../public/posthelper.js"></script>
 <script type="text/javascript" src="../public/logintoken.js"></script>

@@ -1,5 +1,7 @@
 const loginServerPort = 3005;
+const listingServerPort = 3010;
 const loginServerUrl = "http://" + self.location.hostname + ":" + loginServerPort;
+const listingServerUrl = "http://" + self.location.hostname + ":" + listingServerPort;
 
 function AttemptLogin(username, password, event)
 {
