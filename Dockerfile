@@ -1,4 +1,4 @@
-FROM dogwalker_frontend:14
+FROM node:slim
 WORKDIR /app
 COPY package*.json app.js ./
 RUN npm install
